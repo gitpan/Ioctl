@@ -1,8 +1,4 @@
-pmproto
-xsproto
-cdproto
+Ioctl.pm
+Ioctl.xs
 MANIFEST
 Makefile.PL
-genconst.pl
-test.pl
-README
