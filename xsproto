@@ -1,0 +1,56 @@
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
+
+<Headers>
+
+static int
+not_here(s)
+char *s;
+{
+    croak("%s not implemented on this architecture", s);
+    return -1;
+}
+
+static int consterr;
+
+static double
+constant(name, arg)
+char *name;
+int arg;
+{
+    consterr = 0;
+    errno = 0;
+    switch (*name) {
+<Constants>
+    }
+    consterr = 2;
+    errno = EINVAL;
+    return 0;
+
+not_there:
+    errno = ENOENT;
+    consterr = 1;
+    return 0;
+disabled:
+	 errno = ENOENT;
+	 consterr = 3;
+	 return 0;
+}
+
+int errtype _((void)) {
+	return consterr;
+}
+
+
+MODULE = <Name>	PACKAGE = <Name>
+
+
+double
+constant(name,arg)
+	char *		name
+	int		arg
+
+int
+errtype()
+
