@@ -15,4 +15,5 @@ for my $c (@Ioctl::EXPORT_OK) {
     printf "%-20s %s\n", $c, $got;
     ++$total;
 }
+printf "\nIoctl $Ioctl::VERSION\n";
 printf "%02d%% of the constants have values\n", 100 * $ok/$total;

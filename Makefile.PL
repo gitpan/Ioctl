@@ -6,7 +6,7 @@ $name = "Ioctl";
 
 WriteMakefile(
     'NAME'	=> $name,
-    'VERSION'	=> '0.8',
+    'VERSION_FROM'	=> './genconst.pl',
     'LIBS'	=> [''],   # e.g., '-lm' 
     'DEFINE'	=> '',     # e.g., '-DHAVE_SOMETHING' 
     'OBJECT' => 'Ioctl.o',

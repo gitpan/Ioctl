@@ -1,3 +1,9 @@
+1999-10-27  Joshua Pritikin  <joshua.pritikin@db.com>
+
+	* Release 0.81.
+
+	* Add $VERSION!
+
 1999-10-26  Joshua Pritikin  <joshua.pritikin@db.com>
 
 	* Moved all constants to @EXPORT_OK.

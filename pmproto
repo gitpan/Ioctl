@@ -4,6 +4,8 @@ require Exporter;
 require DynaLoader;
 require AutoLoader;
 
+$VERSION = '<Version>';
+
 @ISA = qw(Exporter DynaLoader);
 
 @EXPORT_OK = qw(
@@ -65,7 +67,7 @@ typing `make install'. (You might need root privs.)
     goto &$AUTOLOAD;
 }
 
-bootstrap <Name>;
+<Name>->bootstrap($VERSION);
 
 # Preloaded methods go here.
 

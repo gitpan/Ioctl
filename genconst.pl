@@ -1,5 +1,7 @@
 use Cwd;
 
+$VERSION = '0.81';
+
 $name = $ARGV[0];
 
 $cwd = getcwd();
@@ -164,6 +166,7 @@ while(<IN>) {
 "        break;\n" ,sort keys %f))/ge;
 	s/<Headers>/$h/g;
 	s/<Name>/$name/g;
+	s/<Version>/$VERSION/g;
 	print OUT;
 }
 close(IN);
@@ -186,6 +189,7 @@ while(<IN>) {
 	s/<Constants>/join("\n\t",map("$_",sort @c))/ge;
 	s/<Tags>/join("",map("   \"$_\" => [".join(",",map("\"$_\"",@{$ctag{$_}}))."],\n",keys %ctag))/ge;
 	s/<Name>/$name/g;
+	s/<Version>/$VERSION/g;
 	print OUT;
 }
 close(IN);
