@@ -68,7 +68,9 @@ to deal with new constants, it should likewise be included in the .def file */
 # endif
 #endif
 
+#ifdef LINUX
 #include <linux/cdrom.h>
+#endif
 
 End of header
 

@@ -6,16 +6,20 @@ $name = "Ioctl";
 
 WriteMakefile(
     'NAME'	=> $name,
-    'VERSION'	=> '0.5',
+    'VERSION'	=> '0.7',
     'LIBS'	=> [''],   # e.g., '-lm' 
     'DEFINE'	=> '',     # e.g., '-DHAVE_SOMETHING' 
+    'OBJECT' => 'Ioctl.o',
     'INC'	=> '',     # e.g., '-I/usr/include/other' 
-    'PM' => { "$name.pm" => "\$(INST_LIB)/$name.pm" }
+    #'XS' => { "$name.xs" => "$name.c"},
+    'PM' => { "$name.pm" => "\$(INST_LIB)/$name.pm" },
+    clean => { FILES => "$name.xs $name.pm $name.c" },
+    MAN3PODS => {},
+    C => ["$name.c"],
 );
 
-sub MY::top_targets {
-	$_ = MM->top_targets();
-	$_ .= "
+sub MY::postamble {
+	return "
 	
 $name.def:
 	\$(CP) cdproto $name.def
@@ -23,27 +27,4 @@ $name.def:
 $name.xs $name.pm: genconst.pl $name.def xsproto pmproto
 	\$(PERL) -I\$(PERL_LIB) genconst.pl $name
 ";
-	$_;
 }
-
-sub MY::clean {
-	$_ = MM->clean();
-	$_ .= "	rm -f $name.xs $name.pm $name.c\n";
-	$_;
-	
-};
-
-sub MY::distclean {
-	$_ = MM->distclean();
-	$_ =~ s/\@:/rm -f $name.def Makefile.old/;
-	$_ .= " 
-
-shdistclean:     clean
-	\@:
-	rm -f ./Makefile ./Makefile.old
-	rm -f $name.def
-	shar * > ../\$(DISTNAME)-\$(VERSION).sh 
-	\@:
-";
-	$_;
-}                                        

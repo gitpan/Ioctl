@@ -3,6 +3,6 @@ xsproto
 cdproto
 MANIFEST
 Makefile.PL
-gencode.pl
+genconst.pl
 test.pl
 README
