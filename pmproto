@@ -1,0 +1,76 @@
+package <Name>;
+
+require Exporter;
+require DynaLoader;
+require AutoLoader;
+
+@ISA = qw(Exporter DynaLoader);
+
+@EXPORT_OK = qw(
+	<Constants>
+);
+
+%EXPORT_TAGS = (
+	<Tags>
+);
+
+sub AUTOLOAD {
+    # This AUTOLOAD is used to 'autoload' constants from the constant()
+    # XS function.  If a constant is not found then control is passed
+    # to the AUTOLOAD in AutoLoader.
+
+    # NOTE: THIS AUTOLOAD FUNCTION IS FLAWED (but is the best we can do for now).
+    # Avoid old-style ``&CONST'' usage. Either remove the ``&'' or add ``()''.
+    if (@_ > 0) {
+	$AutoLoader::AUTOLOAD = $AUTOLOAD;
+	goto &AutoLoader::AUTOLOAD;
+    }
+    local($constname);
+    ($constname = $AUTOLOAD) =~ s/.*:://;
+    $val = constant($constname, @_ ? $_[0] : 0);
+    if ($! != 0) {
+		if(errtype()==2) {    # spelling?
+			($pack,$file,$line) = caller;
+			die			
+"Unknown <Name> constant $constname in $file, line $line.  If you
+need this constant, please edit `<Directory>/<Name>.def' and add
+it at the end. Then, go to the <Directory> directory, and regenerate
+the <Name> extension by typing `make install'. (You might need root privs.)
+
+If you think this constant should be supplied by default then contact
+the perl5 developers (or leave a message on comp.lang.perl).
+";
+		} elsif (errtype()==3) {    # disabled
+			($pack,$file,$line) = caller;
+			die 
+			
+"<Name> constant $constname, used in $file, line $line, is explicitly
+disabled. Please read the file `<Directory>/<Name>.def' which may contain
+more information.
+";
+		} elsif (errtype()==1) {      # missing includes
+			($pack,$file,$line) = caller;
+			 die 
+"<Name> constant $constname used at $file, line $line is not available.
+If you know which header file to include, you can edit
+`<Directory>/<Name>.def' and then regenerate the <Name> extension by
+typing `make install'. (You might need root privs.)
+";
+		} else {
+	    $AutoLoader::AUTOLOAD = $AUTOLOAD;
+	    goto &AutoLoader::AUTOLOAD;
+		}
+    }
+    eval "sub $AUTOLOAD { $val }";
+    goto &$AUTOLOAD;
+}
+
+bootstrap <Name>;
+
+# Preloaded methods go here.
+
+# Autoload methods go after __END__, and are processed by the autosplit program.
+
+1;
+__END__
+

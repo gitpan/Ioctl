@@ -1,0 +1,22 @@
+The Ioctl extension
+
+The idea is to have an easily extensible module for getting the value
+of the C Ioctl constants.
+
+The .xs file is automatically rebuilt from the Ioctl.def and xsproto
+file, and likewise the .pm file is generated from Ioctl.def and
+pmproto. Any local additions that need to be included should go in
+Ioctl.def (where, incidentally, they won't be wiped out if you install
+a new version on top of this one.)
+
+No symbols are exported by default.  You need to name each symbol you
+want ("use Ioctl qw(TCFLSH TCXONC);".) You can also directly refer to
+unexported constants via "Ioctl::SymbolName".
+
+Genconst.pl also supplies constants and preproccesor/C code. Any
+changes to the master distribution will be made there, but any site
+local changes should be made in Ioctl.def. This way, genconst.pl can
+be patched in future, while leaving your local improvements/munging
+alone.
+
+- Ken (kjahds@kjahds.com, CIS:70705,126)

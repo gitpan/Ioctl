@@ -1,0 +1,22 @@
+/*  
+ *  This is the Constants definition file. Any constants you need to add or
+ *  modify for your local site should go in here. First, any header
+ *  information, or C code in general:
+ */
+
+/*#include <stdio.h>*/
+
+/*  etc.
+ *  Then, the separator.
+ */
+-----------------------------------
+# And here is the list of constants to use:
+
+#TCXONC, TCFLSH
+
+# You can also say -CONSTANT to disable a constant. It might be wise
+# to add a comment here on _why_ it was disable, though.
+
+
+
+

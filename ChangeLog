@@ -1,0 +1,8 @@
+1999-10-26  Joshua Pritikin  <joshua.pritikin@db.com>
+
+	* Moved all constants to @EXPORT_OK.
+
+	* Improved documentation.
+
+	* Added a bunch of constants.
+
